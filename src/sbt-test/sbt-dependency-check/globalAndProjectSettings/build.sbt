@@ -1,7 +1,7 @@
 // See https://github.com/albuch/sbt-dependency-check/issues/95
 
 name := "global-and-project-settings"
-version := "0.1"
+version := "0.1"F
 scalaVersion := "2.11.12"
 
 Global / dependencyCheckCvePassword := Some("Global")
