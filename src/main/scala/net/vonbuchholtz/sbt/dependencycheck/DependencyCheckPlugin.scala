@@ -32,7 +32,7 @@ object DependencyCheckPlugin extends sbt.AutoPlugin {
     dependencyCheckFormat := "HTML",
     dependencyCheckFormats := Seq(),
     dependencyCheckAutoUpdate := None,
-    dependencyCheckCveValidForHours := None,
+    dependencyCheckNvdValidForHours := None,
     dependencyCheckFailBuildOnCVSS := 11,
     dependencyCheckJUnitFailBuildOnCVSS := None,
     dependencyCheckSkip := false,
@@ -126,12 +126,10 @@ object DependencyCheckPlugin extends sbt.AutoPlugin {
     dependencyCheckPathToGo := None,
 
     // Advanced configuration
-    dependencyCheckCveUrlModified := None,
-    dependencyCheckCveUrlBase := None,
-    dependencyCheckCveUser := None,
-    dependencyCheckCvePassword := None,
-    dependencyCheckCveWaitTime := None,
-    dependencyCheckCveStartYear := None,
+    dependencyCheckNvdDatafeedUrl := None,
+    dependencyCheckNvdDatafeedUser := None,
+    dependencyCheckNvdPassword := None,
+    dependencyCheckNvdStartYear := None,
     dependencyCheckConnectionTimeout := None,
     dependencyCheckConnectionReadTimeout := None,
     dependencyCheckDataDirectory := None,
@@ -220,7 +218,7 @@ object DependencyCheckPlugin extends sbt.AutoPlugin {
     log.info("Applying project settings to DependencyCheck settings")
 
     setBooleanSetting(AUTO_UPDATE, dependencyCheckAutoUpdate.value)
-//    setIntSetting(CVE_CHECK_VALID_FOR_HOURS, dependencyCheckCveValidForHours.value)
+    setIntSetting(NVD_API_VALID_FOR_HOURS, dependencyCheckNvdValidForHours.value)
     setFloatSetting(JUNIT_FAIL_ON_CVSS, dependencyCheckJUnitFailBuildOnCVSS.value)
 
     settings.setStringIfNotEmpty(APPLICATION_NAME, name.value)
@@ -306,12 +304,10 @@ object DependencyCheckPlugin extends sbt.AutoPlugin {
     setStringSetting(ANALYZER_ARTIFACTORY_BEARER_TOKEN, dependencyCheckArtifactoryAnalyzerBearerToken.value)
 
     // Advanced Configuration
-//    setUrlSetting(CVE_MODIFIED_JSON, dependencyCheckCveUrlModified.value)
-//    setStringSetting(CVE_BASE_JSON, dependencyCheckCveUrlBase.value)
-//    setStringSetting(CVE_USER, dependencyCheckCveUser.value)
-//    setStringSetting(CVE_PASSWORD, dependencyCheckCvePassword.value)
-//    setIntSetting(CVE_DOWNLOAD_WAIT_TIME, dependencyCheckCveWaitTime.value)
-//    setIntSetting(CVE_START_YEAR, dependencyCheckCveStartYear.value.map(_.max(2002)))
+    setUrlSetting(NVD_API_DATAFEED_URL, dependencyCheckNvdDatafeedUrl.value)
+    setStringSetting(NVD_API_DATAFEED_USER, dependencyCheckNvdDatafeedUser.value)
+    setStringSetting(NVD_API_DATAFEED_PASSWORD, dependencyCheckNvdPassword.value)
+    setIntSetting(NVD_API_DATAFEED_START_YEAR, dependencyCheckNvdStartYear.value.map(_.max(2002)))
     setIntSetting(CONNECTION_TIMEOUT, dependencyCheckConnectionTimeout.value)
     setIntSetting(CONNECTION_READ_TIMEOUT, dependencyCheckConnectionReadTimeout.value)
     setFileSetting(DATA_DIRECTORY, dependencyCheckDataDirectory.value)
